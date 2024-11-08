@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter</title>
+  </head>
+  <body>
+    <!-- <div id="app">
+      <header>
+        <h1>Counter - JS로 UI 구성</h1>
+        <p>파일 경로: <span id="filepath"></span></p>
+      </header>
+      <div id="counter">
+        <button type="button" onclick="handleDown()">-</button>
+        <button type="button" onclick="handleReset(event)">0</button>
+        <button type="button" onclick="handleUp()">+</button>
+        <span>0</span>
+      </div>
+    </div> -->
+
+    <div id="root"></div>
+
+    <script type="module">
+      // module은 defer 속성을 지정한 것처럼 지연 실행됨
+      // HTML 파싱을 멈추지 않고, HTML 파이싱이 끝난 이후에 실행됨
+      // module 끼리는 선언한 순서대로 실행됨
+      import yong from './yong.js';
+
+      function Header() {
+        return yong.createElement(
+          'header',
+          null,
+          yong.createElement(
+            'h1',
+            null,
+            'Counter - 데이터 변경시 자동으로 UI 리렌더링'
+          ),
+          yong.createElement(
+            'p',
+            null,
+            '파일경로: ',
+            yong.createElement(
+              'span',
+              {id: 'filepath'},
+              `ch${document.URL.split('/ch')[1]}index.html`
+            )
+          )
+        );
+      }
+
+      function Counter() {
+        // let count = 0;
+        const [count, setCount] = yong.useState(10);
+
+        const handleDown = () => {
+          // 데이터 갱신
+          setCount(count - 1);
+        };
+        const handleUp = () => {
+          // 데이터 갱신
+          setCount(count + 1);
+        };
+        const handleReset = (event) => {
+          // 데이터 갱신
+          setCount(0);
+        };
+
+        return yong.createElement(
+          'div',
+          {id: 'counter'},
+          yong.createElement(
+            'button',
+            {type: 'button', onclick: handleDown},
+            '-'
+          ),
+          yong.createElement(
+            'button',
+            {type: 'button', onclick: (event) => handleReset(event)},
+            '0'
+          ),
+          yong.createElement(
+            'button',
+            {type: 'button', onclick: handleUp},
+            '+'
+          ),
+          yong.createElement('span', null, count)
+        );
+      }
+
+      // 어플리케이션의 시작점
+      function App() {
+        return yong.createElement('div', {id: 'app'}, Header, Counter);
+      }
+
+      // document.getElementById('root').appendChild(app);
+      yong.createRoot(document.getElementById('root')).render(App);
+    </script>
+  </body>
+</html>

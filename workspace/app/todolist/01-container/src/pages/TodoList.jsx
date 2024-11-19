@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
 function TodoList({itemList, toggleDone, deleteItem}) {
@@ -11,5 +12,11 @@ function TodoList({itemList, toggleDone, deleteItem}) {
   ));
   return <ul className='todolist'>{list}</ul>;
 }
+
+TodoList.propTypes = {
+  itemList: PropTypes.object.isRequired,
+  toggleDone: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+};
 
 export default TodoList;

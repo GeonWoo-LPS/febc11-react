@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import TodoInput from './TodoInput';
 import TodoList from './TodoList';
 
@@ -20,5 +21,12 @@ function Todo(props) {
     </div>
   );
 }
+
+Todo.propTypes = {
+  addItem: PropTypes.func.isRequired,
+  itemList: PropTypes.object.isRequired,
+  toggleDone: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+};
 
 export default Todo;

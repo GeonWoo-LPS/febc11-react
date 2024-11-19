@@ -14,7 +14,7 @@ function TodoList({itemList, toggleDone, deleteItem}) {
 }
 
 TodoList.propTypes = {
-  itemList: PropTypes.object.isRequired,
+  itemList: PropTypes.array.isRequired,
   toggleDone: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
 };

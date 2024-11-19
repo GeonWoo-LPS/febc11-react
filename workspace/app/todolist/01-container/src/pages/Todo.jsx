@@ -24,7 +24,7 @@ function Todo(props) {
 
 Todo.propTypes = {
   addItem: PropTypes.func.isRequired,
-  itemList: PropTypes.object.isRequired,
+  itemList: PropTypes.array.isRequired,
   toggleDone: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
 };

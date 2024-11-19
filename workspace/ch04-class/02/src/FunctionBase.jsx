@@ -4,14 +4,14 @@ import {useState} from 'react';
 function ClickMe({level}) {
   const [count, setCount] = useState(level || 1);
 
-  const handelClick = () => {
+  const handleClick = () => {
     setCount(count + (level || 1));
   };
 
   return (
     <div>
       클릭횟수 X {level || 1} : {count}
-      <button onClick={handelClick}>클릭</button>
+      <button onClick={handleClick}>클릭</button>
     </div>
   );
 }

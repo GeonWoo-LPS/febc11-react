@@ -17,7 +17,7 @@ class ClickMe extends Component {
   }
 
   // Arrow function으로 작성해야 this.state 등에 접근 가능
-  handelClick = () => {
+  handleClick = () => {
     this.setState({count: this.state.count + (this.props.level || 1)});
     console.log(this.props);
   };
@@ -26,7 +26,7 @@ class ClickMe extends Component {
     return (
       <div>
         클릭 횟수 X {this.props.level || 1} : {this.state.count}
-        <button onClick={this.handelClick}>클릭</button>
+        <button onClick={this.handleClick}>클릭</button>
       </div>
     );
   }

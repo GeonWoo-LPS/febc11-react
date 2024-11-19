@@ -1,15 +1,15 @@
-import Footer from '@components/Footer';
-import Header from '@components/Header';
-import Todo from '@pages/Todo';
+import {produce} from 'immer';
 import {useState} from 'react';
+import Todo from './Todo';
 
-function App() {
+function TodoContainer() {
   // 샘플 목록
-  const [itemList, setItemList] = useState([
+  const sampleItemList = [
     {_id: 1, title: '두부', done: true},
     {_id: 2, title: '계란', done: false},
     {_id: 3, title: '라면', done: true},
-  ]);
+  ];
+  const [itemList, setItemList] = useState(sampleItemList);
 
   // 할 일 추가
   const addItem = (item) => {
@@ -21,9 +21,14 @@ function App() {
   // 할 일 완료/미완료 처리
   const toggleDone = (_id) => {
     // 데이터 갱신(상태 변경)
-    const item = itemList.find((item) => item._id === _id);
-    item.done = !item.done;
-    setItemList([...itemList]);
+    const newItemList = produce(itemList, (draft) => {
+      const item = draft.find((item) => item._id === _id);
+      item.done = !item.done;
+    });
+
+    setItemList(newItemList);
+    console.log('예전 itemList', itemList);
+    console.log('새로운 itemList', newItemList);
   };
 
   // 할일 삭제
@@ -34,17 +39,13 @@ function App() {
   };
 
   return (
-    <div id='todo'>
-      <Header />
-      <Todo
-        itemList={itemList}
-        addItem={addItem}
-        toggleDone={toggleDone}
-        deleteItem={deleteItem}
-      />
-      <Footer />
-    </div>
+    <Todo
+      itemList={itemList}
+      addItem={addItem}
+      toggleDone={toggleDone}
+      deleteItem={deleteItem}
+    />
   );
 }
 
-export default App;
+export default TodoContainer;

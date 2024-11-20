@@ -1,4 +1,4 @@
-import {useReducer, useState} from 'react';
+import {useReducer, useRef, useState} from 'react';
 import Todo from '@pages/Todo';
 import TodoReducer from '@pages/TodoReducer';
 
@@ -11,12 +11,16 @@ function TodoContainer() {
     {_id: 4, title: '김치', done: true},
   ];
   const [itemList, itemListDispatch] = useReducer(TodoReducer, sampleItemList);
-  const [nextId, setNextId] = useState(sampleItemList.length + 1);
+  // const [nextId, setNextId] = useState(sampleItemList.length + 1);
+  const nextId = useRef(sampleItemList.length + 1);
 
   // 할 일 추가
   const addItem = (title) => {
-    itemListDispatch({type: 'ADD', value: {_id: nextId, title, done: false}});
-    setNextId(nextId + 1);
+    itemListDispatch({
+      type: 'ADD',
+      value: {_id: nextId.current, title, done: false},
+    });
+    nextId.current += 1;
   };
 
   // 할 일 완료/미완료 처리

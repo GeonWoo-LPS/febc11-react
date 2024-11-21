@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
@@ -11,35 +11,31 @@ function Counter({ children = '0' }){
 
   // const [count, setCount] = useState(initCount);
   const [count, countDispatch] = useReducer(counterReducer, initCount);
-  const [step, setStep] = useState(1);
+
+  // const [step, setStep] = useState(1);
+  const step = useRef(1); // { current: 1 } 반환
+  const stepElem = useRef(null);
   
   const handleDown = () => {
-    countDispatch({ type: 'DOWN', value: step });
+    countDispatch({ type: 'DOWN', value: step.current });
   };
   const handleUp = () => {
-    countDispatch({ type: 'UP', value: step });
+    countDispatch({ type: 'UP', value: step.current });
   };
   const handleReset = event => {
     // setCount(initCount);
     countDispatch({ type: 'RESET', value: initCount });
+    // const stepElem = document.querySelector('#step');
+    console.log(stepElem);
+    stepElem.current.focus();
   };
-
-  useEffect(() => {
-    console.log('setup 함수 호출.');
-    const timer = setInterval(() => {
-      console.log(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   return (
     <div id="counter">
       <label htmlFor="step">증감치</label>
-      {/* 제어 컴포넌트 value, onChange 사용 */}
-      <input id="step" type="number" style={{ width: '40px' }} value={ step } 
-        onChange={ e => setStep(Number(e.target.value)) } />
+      {/* 비제어 컴포넌트 value, onChange 사용 */}
+      <input id="step" type="number" style={{ width: '40px' }} defaultValue={ step.current } ref={ stepElem }
+        onChange={ e => step.current = Number(e.target.value) } />
       <Button color="red" onClick={ handleDown }>-</Button>
       <Button onClick={ handleReset }>{ initCount }</Button>
       <Button color="blue" onClick={ handleUp }>+</Button>
@@ -53,7 +49,7 @@ function Counter({ children = '0' }){
 // state: 이전 상태(useReducer가 내부적으로 관리, 이전의 리턴값이 다음의 state로 전달)
 // action: 동작을 정의한 객체(자유롭게 작성. 일반적으로 type 속성에 동작을, value 속성에 값을 지정)
 // 리턴값: 새로운 상태
-function counterReducer(state, action){ // (6, { type: 'UP', value: 1 }) => 7
+function counterReducer(state, action){ // (6, { type: 'UP', value: 1 })
   let newState;
 
   switch(action.type){

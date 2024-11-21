@@ -45,7 +45,7 @@ function Counter({ children = '0' }){
   //   setTimeout(() => {
   //     handleUp();
   //   }, 1000);
-  //   console.log('dependencies를 지정하지 않으면 컴포넌트가 마운트된 후와 업데이트 된 후에 호출됨');
+  //   console.log('dependencies를 지정하지 않으면 컴포넌트가 마운트 된 후와 업데이트 된 후에 호출됨');
   // });
 
 
@@ -57,14 +57,14 @@ function Counter({ children = '0' }){
   // }, [step]);
 
 
-  useEffect(() => {
+  useEffect(() => { // setup
     console.log('setup 함수 호출.');
     const timer = setInterval(() => {
       console.log(new Date());
     }, 1000);
     return () => {
       clearInterval(timer);
-    };
+    }; // cleanup
   }, []);
 
   // useEffect(() => {
@@ -81,7 +81,7 @@ function Counter({ children = '0' }){
   return (
     <div id="counter">
       <label htmlFor="step">증감치</label>
-      {/* 제어 컴포넌트 value, onClick 사용 */}
+      {/* 제어 컴포넌트 value, onChange 사용 */}
       <input id="step" type="number" style={{ width: '40px' }} value={ step } 
         onChange={ e => setStep(Number(e.target.value)) } />
       <Button color="red" onClick={ handleDown }>-</Button>

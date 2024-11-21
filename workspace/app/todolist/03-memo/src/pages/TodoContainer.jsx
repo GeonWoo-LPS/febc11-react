@@ -11,9 +11,9 @@ function TodoContainer() {
     {_id: 4, title: '김치', done: true},
   ];
 
-  for (let i = 5; i <= 100; i++) {
-    sampleItemList.push({_id: i, title: `샘플-${i}`, done: false});
-  }
+  // for (let i = 5; i <= 100; i++) {
+  //   sampleItemList.push({_id: i, title: `샘플-${i}`, done: false});
+  // }
 
   const [itemList, itemListDispatch] = useReducer(TodoReducer, sampleItemList);
   // const [nextId, setNextId] = useState(sampleItemList.length + 1);

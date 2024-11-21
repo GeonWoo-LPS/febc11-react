@@ -48,9 +48,13 @@ function App() {
   // };
 
   // 함수를 캐시할 수 있다
+  // const handlePayment = useCallback(() => {
+  //   alert('상품을 결제하시겠습니까?');
+  // }, []);
+
   const handlePayment = useCallback(() => {
-    alert('상품을 결제하시겠습니까?');
-  }, []);
+    alert(`배송비가 ${shippingFees}원이 추가됩니다. 상품을 결제하시겠습니까?`);
+  }, [shippingFees]);
 
   return (
     <>

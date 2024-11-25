@@ -5,7 +5,7 @@ function TodoList() {
     <div id='main'>
       <h2>할일 목록</h2>
       <div className='todo'>
-        <Link to='add'>추가</Link>
+        <Link to='/list/add'>추가</Link>
         <br />
         <form className='search'>
           <input type='text' autoFocus />
@@ -14,17 +14,17 @@ function TodoList() {
         <ul className='todolist'>
           <li>
             <span>1</span>
-            <Link to='/list/detail'>잠자기</Link>
+            <Link to='/list/1'>잠자기</Link>
             <Link to='/list'>삭제</Link>
           </li>
           <li>
             <span>2</span>
-            <Link to='/list/detail'>자바스크립트 복습</Link>
+            <Link to='/list/2'>자바스크립트 복습</Link>
             <Link to='/list'>삭제</Link>
           </li>
           <li>
             <span>3</span>
-            <Link to='/list/detail'>
+            <Link to='/list/3'>
               <s>리액트 과제 하기</s>
             </Link>
             <Link to='/list'>삭제</Link>

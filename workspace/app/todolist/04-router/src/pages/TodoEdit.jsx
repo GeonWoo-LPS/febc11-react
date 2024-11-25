@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 
 function TodoEdit() {
   return (
-    <div id='main'>
+    <>
       <h2>할일 수정</h2>
       <div className='todo'>
         <form>
@@ -17,11 +17,11 @@ function TodoEdit() {
           <label htmlFor='done'>완료 :</label>
           <input type='checkbox' id='done' checked />
           <br />
-          <Link to='/list/detail'>수정</Link>
-          <Link to='/list/detail'>취소</Link>
+          <Link to='/list/1'>수정</Link>
+          <Link to='/list/1'>취소</Link>
         </form>
       </div>
-    </div>
+    </>
   );
 }
 

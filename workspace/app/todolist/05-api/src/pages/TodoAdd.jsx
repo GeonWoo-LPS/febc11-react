@@ -19,10 +19,7 @@ function TodoAdd() {
     }, 2000);
 
     const xhr = new XMLHttpRequest();
-    xhr.open(
-      'POST',
-      'https://todo-api.fesp.shop/api/todolist?delay=1000000000'
-    );
+    xhr.open('POST', 'https://todo-api.fesp.shop/api/todolist?delay=100');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.responseType = 'json'; // xhr.response에 저장되는 응답 데이터가 JSON.parse() 결과로 저장됨
 

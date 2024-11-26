@@ -1,5 +1,4 @@
 # 9장 HTTP 통신과 Ajax
-* 소스 코드(GitHub): <https://github.com/uzoolove/febc11-react/tree/main/workspace-ins/ch09-ajax>
 * 코드 실행(GitHub Page): <https://uzoolove.github.io/febc11-react/workspace-ins/index.html#09>
 
 ## HTTP
@@ -94,7 +93,7 @@ HTTP/2와 HTTP/3는 기존 HTTP/1.x의 비효율성을 개선하기 위해 다�
 ##### url 추가
 - Variable: url
 - Type: default
-- initial value: `https://11.fesp.shop`
+- initial value: `https://todo-api.fesp.shop`
 - Ctrl + S 눌러서 저장
 
 #### Collection 추가

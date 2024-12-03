@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import Product from './Product';
 import Shipping from './Shipping';
 import {DotLoader} from 'react-spinners';
-import {axios} from 'axios';
+import useAxiosInstance from './hook/useAxiosInstance';
 
 function App() {
   console.log('App 렌더링'); // 1번
@@ -26,28 +26,18 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const axios = useAxiosInstance();
+
   const fetchData = async (_id) => {
     setIsLoading(true);
     try {
-      const res = await axios(
-        `https://11.fesp.shop/products/${_id}?delay=3000`,
-        {
-          headers: {
-            'client-id': '00-nike',
-          },
-        }
-      );
+      // const res = await axios.get(`/products/${_id}`, {
+      //   params: {delay: 1000},
+      // });
+      const res = await axios.get(`/products/${_id}`);
       console.log('res', res);
-      const jsonData = await res.json();
-      console.log('jsonData', jsonData);
-      if (res.ok) {
-        setData(res.data); // 4번 (마운트 후)
-        setError(null);
-      } else {
-        // 4xx, 5xx 응답 상태 코드를 받을 경우
-        setError(jsonData);
-        setData(null);
-      }
+      setData(res.data.item); // 4번 (마운트 후)
+      setError(null);
     } catch (err) {
       // network 에러
       console.error(err);
@@ -59,7 +49,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData(4); // 3번(마운트 후)
+    fetchData(7); // 3번(마운트 후)
   }, []); // 마운트 된 이후에 최초 한번만 실행
 
   const basicShippingFees = 3000;

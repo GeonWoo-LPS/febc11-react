@@ -56,7 +56,7 @@ function App() {
   // return <h1></h1> 2(마운트)
   return (
     <>
-      <h1>01 Nike 상품 상세 조회 - axios</h1>
+      <h1>02 Nike 상품 상세 조회 - axios</h1>
       {isLoading && <DotLoader />}
       {/* {error && <p>{error.message}</p>} */}
       {data && (

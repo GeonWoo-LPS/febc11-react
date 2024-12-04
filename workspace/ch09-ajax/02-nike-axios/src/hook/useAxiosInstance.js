@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {toast} from 'react-toastify';
 
 function useAxiosInstance() {
   const instance = axios.create({
@@ -39,6 +40,10 @@ function useAxiosInstance() {
       // 2xx 외의 범위에 있는 상태 코드는 이 함수가 호출됨
       // 공통 에러 처리
       console.error('인터셉터', error);
+      const message = '잠시 후 다시 요청하세요';
+      // alert(message)
+      // error.message = message;
+      toast.error(message);
       return Promise.reject(error);
     }
   );

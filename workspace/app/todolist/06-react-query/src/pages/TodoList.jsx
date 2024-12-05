@@ -39,6 +39,7 @@ function TodoList() {
     select: (res) => res.data,
     staleTime: 1000 * 60, // fresh => stale 전환되는데 걸리는 시간
     gcTime: 1000 * 60 * 5, // 캐시 제거
+    refetchInterval: 1000 * 3,
   });
 
   // 삭제 작업

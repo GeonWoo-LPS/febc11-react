@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import ListItem from './ListItem';
 import {useQuery} from '@tanstack/react-query';
 import useAxiosInstance from '@hooks/useAxiosInstance';
@@ -6,9 +6,11 @@ import useAxiosInstance from '@hooks/useAxiosInstance';
 export default function List() {
   const axios = useAxiosInstance();
 
+  const {type} = useParams();
+
   const {data} = useQuery({
-    queryKey: ['posts', 'brunch'],
-    queryFn: () => axios.get('/posts', {params: {type: 'brunch'}}),
+    queryKey: ['posts', type],
+    queryFn: () => axios.get('/posts', {params: {type}}),
     select: (res) => res.data,
     staleTime: 1000 * 10,
   });

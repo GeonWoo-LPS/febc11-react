@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useSearchParams } from "react-router-dom";
 import '../Pagination.css';
 import Pagination from "@components/Pagination";
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 function TodoList() {
 
@@ -18,7 +18,7 @@ function TodoList() {
   const params = {
     keyword: searchParams.get('keyword') || '',
     page: searchParams.get('page') || 1,
-    limit: 5,
+    limit: 20,
   };
 
   // axios 인스턴스
@@ -35,27 +35,43 @@ function TodoList() {
   // }, [searchParams]); // 최초 마운트 후에 호출
 
   const { data, refetch } = useQuery({
-    queryKey: ['할일목록을 조회하는 쿼리'],
+    queryKey: ['todolist', params],
     queryFn: () => axios.get('/todolist', { params }),
     select: res => res.data,
+    staleTime: 1000*60, // fresh => stale 전환되는데 걸리는 시간
+    gcTime: 1000*60*5, // 캐시 제거
   });
 
   // 삭제 작업
-  const handleDelete = async (_id) => {
-    try{
-      // API 서버에 삭제 요청
-      await axios.delete(`/todolist/${ _id }`);
+  // const handleDelete = async (_id) => {
+  //   try{
+  //     // API 서버에 삭제 요청
+  //     await axios.delete(`/todolist/${ _id }`);
+  //     alert('할일이 삭제 되었습니다.');
+
+  //     // 목록을 다시 조회
+  //     refetch();
+  //   }catch(err){
+  //     console.error(err);
+  //     alert('할일 삭제에 실패했습니다.');
+  //   }
+  // };
+
+  const deleteItem = useMutation({
+    mutationFn: (_id) => axios.delete(`/todolist/${ _id }`),
+    onSuccess: () => {
       alert('할일이 삭제 되었습니다.');
 
       // 목록을 다시 조회
       refetch();
-    }catch(err){
+    },
+    onError: (err) => {
       console.error(err);
       alert('할일 삭제에 실패했습니다.');
-    }
-  };
+    },
+  });
 
-  const itemList = data?.items.map(item => <TodoListItem key={ item._id } item={ item } handleDelete={ handleDelete } />);
+  const itemList = data?.items.map(item => <TodoListItem key={ item._id } item={ item } handleDelete={ () => deleteItem.mutate(item._id) } />);
   
   // 검색
   const handleSearch = (e) => {

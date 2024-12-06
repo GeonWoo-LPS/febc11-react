@@ -1,7 +1,8 @@
-import MainPage from '@pages/index';
+import {RouterProvider} from 'react-router-dom';
+import router from '@/routes';
 
 function App() {
-  return <MainPage />;
+  return <RouterProvider router={router} future={{v7_startTransition: true}} />;
 }
 
 export default App;

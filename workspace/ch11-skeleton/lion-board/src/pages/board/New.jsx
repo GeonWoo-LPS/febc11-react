@@ -25,7 +25,7 @@ export default function New() {
     },
     onSuccess: () => {
       alert('게시물이 등록되었습니다.');
-      queryClient.invalidatesQueries(['posts', type]);
+      queryClient.invalidateQueries(['posts', type]);
       navigate(`/${type}`);
     },
     onError: (err) => {

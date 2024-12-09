@@ -13,6 +13,8 @@ function useAxiosInstance() {
 
   // 요청 인터셉터 추가하기
   instance.interceptors.request.use((config) => {
+    config.headers['Authorization'] =
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjE1LCJ0eXBlIjoidXNlciIsIm5hbWUiOiLrg4ntmLntlZzqs4TsgrDsnZjtmozqs4QiLCJlbWFpbCI6ImthbnBla2lAbWlsbGVubml1bS5jb20iLCJsb2dpblR5cGUiOiJlbWFpbCIsImlhdCI6MTczMzcyNzY2MSwiZXhwIjoxNzMzODE0MDYxLCJpc3MiOiJGRVNQIn0._8dMjImX2_XpsP6-Asu9TIxycsD3O2vFQZxrPbZXx9g';
     // 요청이 전달되기 전에 필요한 공통 작업 수행
     config.params = {
       delay: 500,

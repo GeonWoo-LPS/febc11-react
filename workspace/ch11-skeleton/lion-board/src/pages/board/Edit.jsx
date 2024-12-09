@@ -32,8 +32,8 @@ export default function Edit() {
   const updateItem = useMutation({
     mutationFn: (formData) => axios.patch(`/posts/${_id}`, formData),
     onSuccess: () => {
-      alert('게시물이 등록되었습니다.');
-      queryClient.invalidatesQueries(['post', type]);
+      alert('게시물이 수정되었습니다.');
+      queryClient.invalidateQueries(['post', type]);
       navigate(`/${type}/${_id}`);
     },
     onError: (err) => {

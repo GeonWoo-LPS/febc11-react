@@ -1,8 +1,8 @@
 import InputError from '@components/InputError';
 import useAxiosInstance from '@hooks/useAxiosInstance';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useMutation} from '@tanstack/react-query';
 import {useForm} from 'react-hook-form';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function Signup() {
       console.error(err);
       if (err.response?.data.errors) {
         err.response?.data.errors.forEach((error) =>
-          setError(error.path, {message: error.message})
+          setError(error.path, {message: error.msg})
         );
       } else {
         alert(err.response?.data.message || '잠시 후 다시 요청하세요');

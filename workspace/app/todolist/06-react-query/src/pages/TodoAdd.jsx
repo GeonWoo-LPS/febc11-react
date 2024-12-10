@@ -21,7 +21,7 @@ function TodoAdd() {
     mutationFn: (item) => axios.post('/todolist', item), // handleSubmit에서 검증을 통과할 경우 호출됨
     onSuccess: () => {
       alert('할일이 추가되었습니다.');
-      queryClient.invalidateQueries(['todolist']);
+      queryClient.invalidateQueries({queryKey: ['todolist']});
       // 할일 목록으로 이동
       navigate(-1);
     },

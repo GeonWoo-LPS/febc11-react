@@ -32,7 +32,7 @@ function TodoEdit() {
     onSuccess: () => {
       alert('할일이 수정되었습니다.');
       navigate(-1);
-      queryClient.invalidateQueries(['todolist', item._id]);
+      queryClient.invalidateQueries({queryKey: ['todolist', item._id]});
     },
     onError: (err) => {
       console.error(err);

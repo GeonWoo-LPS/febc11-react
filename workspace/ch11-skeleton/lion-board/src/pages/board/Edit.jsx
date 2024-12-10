@@ -33,7 +33,7 @@ export default function Edit() {
     mutationFn: (formData) => axios.patch(`/posts/${_id}`, formData),
     onSuccess: () => {
       alert('게시물이 수정되었습니다.');
-      queryClient.invalidateQueries(['post', type]);
+      queryClient.invalidateQueries({queryKey: ['post', type]});
       navigate(`/${type}/${_id}`);
     },
     onError: (err) => {

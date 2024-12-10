@@ -1,9 +1,10 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import CommentList from './CommentList';
 import useAxiosInstance from '@hooks/useAxiosInstance';
-import {useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
 export default function Detail() {
+  const navigate = useNavigate();
   const axios = useAxiosInstance();
 
   const {type, _id} = useParams();
@@ -13,7 +14,23 @@ export default function Detail() {
     queryFn: () => axios.get(`/posts/${_id}`),
     select: (res) => res.data,
     staleTime: 1000 * 10,
+    refetchInterval: 1000,
   });
+
+  const queryClient = useQueryClient();
+  const removeItem = useMutation({
+    mutationFn: (_id) => axios.delete(`/posts/${_id}`),
+    onSuccess: () => {
+      alert('게시물이 삭제되었습니다.');
+      queryClient.invalidateQueries({queryKey: ['posts', type]});
+      navigate(`/${type}`);
+    },
+  });
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    removeItem.mutate(_id);
+  };
 
   console.log(data);
 
@@ -24,7 +41,7 @@ export default function Detail() {
   return (
     <main className='container mx-auto mt-4 px-4'>
       <section className='mb-8 p-4'>
-        <form action='/info'>
+        <form onSubmit={onSubmit}>
           <div className='font-semibold text-xl'>제목 : {data.item.title}</div>
           <div className='text-right text-gray-400'>
             작성자 : {data.item.user.name}
@@ -60,7 +77,7 @@ export default function Detail() {
         </form>
       </section>
 
-      <CommentList />
+      <CommentList data={data.item.replies} />
     </main>
   );
 }

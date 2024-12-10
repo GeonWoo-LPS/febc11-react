@@ -29,7 +29,7 @@ export default function Login() {
       setUser({
         _id: user._id,
         name: user.name,
-        profile: user.imgae?.path,
+        profile: user.image?.path,
         accessToken: user.token.accessToken,
         refreshToken: user.token.refreshToken,
       });

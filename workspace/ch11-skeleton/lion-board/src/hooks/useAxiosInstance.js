@@ -1,6 +1,9 @@
+import useUserStore from '@zustand/userStore';
 import axios from 'axios';
 
 function useAxiosInstance() {
+  const {user} = useUserStore();
+
   const instance = axios.create({
     baseURL: 'https://11.fesp.shop',
     timeout: 1000 * 15,
@@ -13,10 +16,12 @@ function useAxiosInstance() {
 
   // 요청 인터셉터 추가하기
   instance.interceptors.request.use((config) => {
+    if (user) {
+      config.headers['Authorization'] = `Bearer ${user.accessToken}`;
+    }
     // config.headers['Authorization'] =
     //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwOSwidHlwZSI6InVzZXIiLCJuYW1lIjoi64OJ7Zi57ZWc6rOE7IKw7J2Y7ZqM6rOEIiwiZW1haWwiOiJrYW5wZWtpaUBtaWxsZW5uaXVtLmNvbSIsImltYWdlIjp7Im9yaWdpbmFsbmFtZSI6IsOqwrPChMOswoLCsMOqwrjCsC53ZWJwIiwibmFtZSI6ImNLVzF3azVkWi53ZWJwIiwicGF0aCI6Ii9maWxlcy8wMC1icnVuY2gvY0tXMXdrNWRaLndlYnAifSwibG9naW5UeXBlIjoiZW1haWwiLCJpYXQiOjE3MzM4MDc5NTksImV4cCI6MTczMzg5NDM1OSwiaXNzIjoiRkVTUCJ9.BLa6iz-WFaMSItJG2paKjUYv37WZNC-Dx9gdzoNBjrA';
-    config.headers['Authorization'] =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjExMywidHlwZSI6InVzZXIiLCJuYW1lIjoi6rmA6rG07JqwIiwiZW1haWwiOiJqc0Bqcy5jb20iLCJpbWFnZSI6eyJvcmlnaW5hbG5hbWUiOiIzMTYwNDMwNDJfMTA0NTU5NDcyNDg3MjcxXzExNzc3MDI1NTg5NzUzODE2MjNfbi5qcGciLCJuYW1lIjoibDZJUTlqbC10LmpwZyIsInBhdGgiOiIvZmlsZXMvMDAtYnJ1bmNoL2w2SVE5amwtdC5qcGcifSwibG9naW5UeXBlIjoiZW1haWwiLCJpYXQiOjE3MzM4MTAxNTQsImV4cCI6MTczMzg5NjU1NCwiaXNzIjoiRkVTUCJ9.25MzDajSmEyVpuFg_iLha-RJ0XalePjbsGOVWvU8ktk';
+
     // 요청이 전달되기 전에 필요한 공통 작업 수행
     config.params = {
       delay: 500,

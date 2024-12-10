@@ -1,10 +1,13 @@
 import InputError from '@components/InputError';
 import useAxiosInstance from '@hooks/useAxiosInstance';
 import {useMutation} from '@tanstack/react-query';
+import useUserStore from '@zustand/userStore';
 import {useForm} from 'react-hook-form';
 import {Link, useNavigate} from 'react-router-dom';
 
 export default function Login() {
+  const setUser = useUserStore((store) => store.setUser);
+
   const navigate = useNavigate();
 
   const {
@@ -20,7 +23,18 @@ export default function Login() {
     mutationFn: (formData) => axios.post(`/users/login`, formData),
     onSuccess: (res) => {
       console.log(res);
-      console.log(res.data.item.token.accessToken);
+
+      const user = res.data.item;
+      // 회원정보 저장
+      setUser({
+        _id: user._id,
+        name: user.name,
+        profile: user.imgae?.path,
+        accessToken: user.token.accessToken,
+        refreshToken: user.token.refreshToken,
+      });
+
+      // console.log(res.data.item.token.accessToken);
       alert(res.data.item.name + '님, 로그인 되었습니다.');
       navigate(`/`);
     },

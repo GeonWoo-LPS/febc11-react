@@ -2,8 +2,11 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import CommentList from './CommentList';
 import useAxiosInstance from '@hooks/useAxiosInstance';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import useUserStore from '@zustand/userStore';
 
 export default function Detail() {
+  const {user} = useUserStore();
+
   const navigate = useNavigate();
   const axios = useAxiosInstance();
 
@@ -61,18 +64,22 @@ export default function Detail() {
             >
               목록
             </Link>
-            <Link
-              to={`/${type}/${_id}/edit`}
-              className='bg-gray-900 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
-            >
-              수정
-            </Link>
-            <button
-              type='submit'
-              className='bg-red-500 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
-            >
-              삭제
-            </button>
+            {user?._id === data.item.user._id && (
+              <>
+                <Link
+                  to={`/${type}/${_id}/edit`}
+                  className='bg-gray-900 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
+                >
+                  수정
+                </Link>
+                <button
+                  type='submit'
+                  className='bg-red-500 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
+                >
+                  삭제
+                </button>
+              </>
+            )}
           </div>
         </form>
       </section>

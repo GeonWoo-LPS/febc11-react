@@ -15,7 +15,12 @@ export default function Login() {
     handleSubmit,
     formState: {errors},
     setError,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: 'kanpeki@millennium.com',
+      password: 'q!w@e3r4',
+    },
+  });
 
   const axios = useAxiosInstance();
 

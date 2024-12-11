@@ -24,16 +24,6 @@ export default function Login() {
     onSuccess: (res) => {
       console.log(res);
 
-      const user = res.data.item;
-      // 회원정보 저장
-      setUser({
-        _id: user._id,
-        name: user.name,
-        profile: user.image?.path,
-        accessToken: user.token.accessToken,
-        refreshToken: user.token.refreshToken,
-      });
-
       // console.log(res.data.item.token.accessToken);
       alert(res.data.item.name + '님, 로그인 되었습니다.');
       navigate(`/`);

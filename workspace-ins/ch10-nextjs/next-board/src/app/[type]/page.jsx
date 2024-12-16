@@ -10,6 +10,15 @@ async function fetchPosts(type){
   return await res.json();
 }
 
+// metadata 객체를 반환하는 함수
+export async function generateMetadata({ params }) {
+  const { type } = await params;
+  return {
+    title: `${type} 게시물 목록`,
+    description: '게시물 목록 페이지입니다.'
+  };
+}
+
 export default async function Page({ params }) {
   // const { type } = params; // Next.js 14
   // Next.js 15에서 params가 Promise로 전달됨

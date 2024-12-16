@@ -1,3 +1,26 @@
+import './globals.css';
+
+import Link from 'next/link';
+
+export const metadata = {
+  title: {
+    default: '멋쟁이 사자처럼 커뮤니티 - 멋사컴즈',
+    template: '%s | 멋사컴즈',
+  },
+  description: '유용한 정보를 나누고 공유하세요.',
+  keywords: '커뮤니티, 소통, 포럼, 관심사, 온라인 모임, 커뮤니티 서비스',
+  authors: [{name: 'Front End Boot Camp'}],
+
+  openGraph: {
+    title: '멋사컴에 오신걸 환영합니다.',
+    description: ' ',
+    images: ['/images/febc.png'],
+    url: 'https://board.fesp.shop',
+    type: 'website',
+    siteName: '멋사컴즈',
+  },
+};
+
 export default function RootLayout({children}) {
   return (
     <html lang='ko'>
@@ -5,29 +28,7 @@ export default function RootLayout({children}) {
         <meta charSet='UTF-8' />
         <link rel='icon' type='image/x-icon' href='/images/favicon.svg' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <title>멋쟁이 사자처럼 커뮤니티 - 멋사컴</title>
-
-        <meta
-          name='description'
-          content='다양한 주제의 커뮤니티와 활발한 소통을 위한 플랫폼입니다. 관심사에 따라 참여하고, 의견을 나누세요.'
-        />
-        <meta
-          name='keywords'
-          content='커뮤니티, 소통, 포럼, 관심사, 온라인 모임, 커뮤니티 서비스'
-        />
-        <meta name='author' content='Front End Boot Camp' />
-
-        <meta property='og:title' content='멋사컴에 오신걸 환영합니다.' />
-        <meta
-          property='og:description'
-          content='유용한 정보를 나누고 공유하세요.'
-        />
-        <meta property='og:image' content='/images/febc.png' />
-        <meta property='og:url' content='https://board.fesp.shop' />
-        <meta property='og:type' content='website' />
-        <meta property='og:site_name' content='멋사컴' />
-
-        <script src='https://cdn.tailwindcss.com'></script>
+        <title></title>
       </head>
       <body>
         <div id='root'>
@@ -35,7 +36,7 @@ export default function RootLayout({children}) {
             <header className='px-8 min-w-80 bg-slate-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200 transition-color duration-500 ease-in-out'>
               <nav className='flex flex-wrap justify-center items-center p-4 md:flex-nowrap md:justify-between'>
                 <div className='w-1/2 order-1 md:w-auto'>
-                  <a href='/' className='flex items-center gap-2'>
+                  <Link href='/' className='flex items-center gap-2'>
                     <img
                       className='mr-3 h-6 sm:h-9'
                       src='/images/favicon.svg'
@@ -44,36 +45,36 @@ export default function RootLayout({children}) {
                       alt='로고 이미지'
                     />
                     <span className='text-lg font-bold'>멋사컴</span>
-                  </a>
+                  </Link>
                 </div>
                 <div className='w-auto order-2 text-base mt-4 md:mt-0'>
                   <ul className='flex items-center gap-6 uppercase'>
                     <li className='hover:text-amber-500 hover:font-semibold'>
-                      <a href='/info'>정보공유</a>
+                      <Link href='/info'>정보공유</Link>
                     </li>
                     <li className='hover:text-amber-500 hover:font-semibold'>
-                      <a href='/free'>자유게시판</a>
+                      <Link href='/free'>자유게시판</Link>
                     </li>
                     <li className='hover:text-amber-500 a:font-semibold'>
-                      <a href='/qna'>질문게시판</a>
+                      <Link href='/qna'>질문게시판</Link>
                     </li>
                   </ul>
                 </div>
 
                 <div className='w-1/2 order-1 flex justify-end items-center md:order-2 md:w-auto'>
                   <div className='flex justify-end'>
-                    <a
+                    <Link
                       href='/user/login'
                       className='bg-orange-500 py-1 px-2 text-sm text-white font-semibold ml-2 hover:bg-amber-400 rounded'
                     >
                       로그인
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href='/user/signup'
                       className='bg-gray-900 py-1 px-2 text-sm text-white font-semibold ml-2 hover:bg-amber-400 rounded'
                     >
                       회원가입
-                    </a>
+                    </Link>
                   </div>
 
                   <button
@@ -111,66 +112,66 @@ export default function RootLayout({children}) {
 
             <footer className='p-4 pb-12 w-full border-t border-t-slate-200  dark:border-t-slate-500 dark:bg-gray-600 text-gray-600 dark:text-white transition-color duration-500 ease-in-out'>
               <div className='min-w-[320px] flex flex-wrap gap-4 justify-center items-center text-sm text-slate-400'>
-                <a
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   약관
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   게시판 정책
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   회사소개
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   광고
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   마이비즈니스
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   제휴 제안
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   이용약관
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   개인정보취급방침
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   청소년보호 정책
-                </a>
-                <a
+                </Link>
+                <Link
                   href='#'
                   className='hover:font-semibold dark:hover:text-gray-200'
                 >
                   고객센터
-                </a>
+                </Link>
               </div>
             </footer>
           </div>

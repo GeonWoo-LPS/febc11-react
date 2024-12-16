@@ -1,37 +1,60 @@
-export default function Page() {
+import Link from 'next/link';
+
+// 게시물 목록 조회해서 반환
+async function fetchPosts(_id) {
+  console.log(_id, '상세 조회');
+  const url = `https:/11.fesp.shop/posts/${_id}`;
+  const res = await fetch(url, {
+    headers: {'client-id': '00-board'},
+  });
+
+  return await res.json();
+}
+
+// metadata 객체를 반환하는 함수
+export async function generateMetadata({params}) {
+  const {_id} = await params;
+  const data = await fetchPosts(_id);
+  return {
+    title: data.item.title,
+    description: data.item.content,
+  };
+}
+
+export default async function Page({params}) {
+  const {_id} = await params;
+
+  const data = await fetchPosts(_id);
+
   return (
     <main className='container mx-auto mt-4 px-4'>
       <section className='mb-8 p-4'>
         <form action='/info'>
-          <div className='font-semibold text-xl'>
-            제목 : 좋은 소식이 있습니다.
+          <div className='font-semibold text-xl'>제목 : {data.item.title}</div>
+          <div className='text-right text-gray-400'>
+            작성자 : {data.item.user.name}
           </div>
-          <div className='text-right text-gray-400'>작성자 : 제이지</div>
           <div className='mb-4'>
             <div>
               <pre className='font-roboto w-full p-2 whitespace-pre-wrap'>
-                좋은 소식을 가지고 왔습니다.
-                <br />
-                오늘 드디어 최종 면접을 합니다.
-                <br />
-                많이 응원해 주세요^^
+                {data.item.content}
               </pre>
             </div>
             <hr />
           </div>
           <div className='flex justify-end my-4'>
-            <a
+            <Link
               href='/info'
               className='bg-orange-500 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
             >
               목록
-            </a>
-            <a
+            </Link>
+            <Link
               href='/info/1/edit'
               className='bg-gray-900 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
             >
               수정
-            </a>
+            </Link>
             <button
               type='submit'
               className='bg-red-500 py-1 px-4 text-base text-white font-semibold ml-2 hover:bg-amber-400 rounded'
@@ -52,9 +75,9 @@ export default function Page() {
               src='https://api.fesp.shop/files/00-sample/user-muzi.webp'
               alt='어피치 프로필 이미지'
             />
-            <a href='' className='text-orange-400'>
+            <Link href='' className='text-orange-400'>
               어피치
-            </a>
+            </Link>
             <time
               className='ml-auto text-gray-500'
               dateTime='2024.07.02 14:11:22'
@@ -82,9 +105,9 @@ export default function Page() {
               src='https://api.fesp.shop/files/00-sample/user-muzi.webp'
               alt='무지 프로필 이미지'
             />
-            <a href='' className='text-orange-400'>
+            <Link href='' className='text-orange-400'>
               무지
-            </a>
+            </Link>
             <time
               className='ml-auto text-gray-500'
               dateTime='2024.07.07 12:34:56'

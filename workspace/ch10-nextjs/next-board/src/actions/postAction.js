@@ -11,7 +11,7 @@ export async function addPost(formData) {
 
   const res = await fetch('https://11.fesp.shop/posts', {
     method: 'POST',
-    header: {
+    headers: {
       'Content-Type': 'application/json',
       'client-id': '00-board',
     },

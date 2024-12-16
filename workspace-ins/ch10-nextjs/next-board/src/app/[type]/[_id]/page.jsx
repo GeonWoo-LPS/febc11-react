@@ -2,11 +2,22 @@ import Link from "next/link";
 
 // 게시물 상세정보를 조회해서 반환
 async function fetchPost(_id){
+  console.log(_id, '상세 조회');
   const url = `https://11.fesp.shop/posts/${_id}`;
   const res = await fetch(url, {
     headers: { 'client-id': '00-board' }
   });
   return await res.json();
+}
+
+// metadata 객체를 반환하는 함수
+export async function generateMetadata({ params }) {
+  const { _id } = await params;
+  const data = await fetchPost(_id);
+  return {
+    title: data.item.title,
+    description: data.item.content,
+  };
 }
 
 export default async function Page({ params }) {
